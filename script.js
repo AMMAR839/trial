@@ -1,9 +1,9 @@
 // Ganti dengan Project URL dan anon public key Anda
-const SUPABASE_URL = 'https://jyjunbzusfrmaywmndpa.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5anVuYnp1c2ZybWF5d21uZHBhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1Mzg0MzExOCwiZXhwIjoyMDY5NDE5MTE4fQ.A3O9EXp65v5U32tIKH5XQ0In02alUoKdCuSIa0jlyTQ';
+const supabaseClient_URL = 'https://jyjunbzusfrmaywmndpa.supabase.co';
+const supabaseClient_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5anVuYnp1c2ZybWF5d21uZHBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4NDMxMTgsImV4cCI6MjA2OTQxOTExOH0.IQ6yyyR2OpvQj1lIL1yFsWfVNhJIm2_EFt5Pnv4Bd38';
 
-// Inisialisasi klien Supabase
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Inisialisasi klien supabaseClient
+const supabaseClient = supabase.createClient(supabaseClient_URL, supabaseClient_ANON_KEY);
 
 // --- Fungsi untuk memperbarui UI ---
 // Fungsi untuk memperbarui UI data navigasi
@@ -87,7 +87,7 @@ async function fetchInitialData() {
     const errorMessageElement = document.getElementById('error-message');
     try {
         // Ambil data navigasi paling baru
-        const { data: navData, error: navError } = await supabase
+        const { data: navData, error: navError } = await supabaseClient
             .from('nav_data') // Perbaikan: Gunakan 'nav_data' yang konsisten
             .select('*')
             .order('timestamp', { ascending: false })
@@ -101,7 +101,7 @@ async function fetchInitialData() {
             updateNavUI(null);
         }
 
-        const {data: cogData, error: cogError} = await supabase
+        const {data: cogData, error: cogError} = await supabaseClient
             .from('cog_data') // Perbaikan: Gunakan 'cog' yang
             .select('*')
             .order('timestamp', { ascending: false })
@@ -115,7 +115,7 @@ async function fetchInitialData() {
         }
         
         // Ambil semua data gambar
-        const { data: images, error: imagesError } = await supabase
+        const { data: images, error: imagesError } = await supabaseClient
             .from('gambar_atas')
             .select('*');
         
@@ -133,7 +133,7 @@ async function fetchInitialData() {
 // --- Realtime Subscriptions untuk update otomatis ---
 
 // Menggunakan Realtime untuk data navigasi
-supabase
+supabaseClient
   .channel('nav_data_changes')
   .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'nav_data' }, payload => { // Perbaikan: Gunakan 'nav_data'
     console.log('Realtime Nav Data Update:', payload.new);
@@ -142,14 +142,14 @@ supabase
   .subscribe();
 
 // Menggunakan Realtime untuk gambar misi
-supabase
+supabaseClient
   .channel('mission_images_changes')
   .on('postgres_changes', { event: '*', schema: 'public', table: 'gambar_atas' }, async payload => {
     console.log('Realtime Mission Images Update:', payload);
     
     // Perbaikan: Panggil ulang fungsi yang mengambil semua gambar terbaru
     // untuk memastikan tampilan selalu sinkron.
-    const { data: images, error } = await supabase
+    const { data: images, error } = await supabaseClient
       .from('gambar_atas')
       .select('*');
 
