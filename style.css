@@ -1,0 +1,122 @@
+/* style.css */
+
+/* --- Gaya Dasar --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- Bagian Data --- */
+.data-section, .images-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #0056b3;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.data-card {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+td:first-child {
+    font-weight: bold;
+    width: 150px;
+}
+
+/* --- Bagian Gambar --- */
+.images-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.image-slot {
+    flex: 1;
+    min-width: 300px;
+}
+
+h3 {
+    margin-top: 0;
+    color: #495057;
+}
+
+.image-gallery {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.image-gallery img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- Pesan Error --- */
+.error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* --- Responsivitas --- */
+@media (max-width: 768px) {
+    .images-container {
+        flex-direction: column;
+    }
+}

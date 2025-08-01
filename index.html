@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Monitoring Misi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard Monitoring Misi</h1>
+    </header>
+
+    <main>
+        <section class="data-section">
+            <h2>Data Navigasi</h2>
+            <div id="error-message" class="error-message"></div>
+            <div class="data-card">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Timestamp</td>
+                            <td id="timestamp">N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Latitude</td>
+                            <td id="latitude">N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Longitude</td>
+                            <td id="longitude">N/A</td>
+                        </tr>
+                        <tr>
+                            <td>SOG (m/s)</td>
+                            <td id="sog_ms">N/A</td>
+                        </tr>
+                        <tr>
+                            <td>SOG (km/h)</td>
+                            <td id="sog_kmh">N/A</td>
+                        </tr>
+                        <tr>
+                            <td>SOG (knots)</td>
+                            <td id="sog_knots">N/A</td>
+                        </tr>
+                        <tr>
+                            <td>COG</td>
+                            <td id="cog">N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="images-section">
+            <h2>Gambar Misi</h2>
+            <div class="images-container">
+                <div class="image-slot">
+                    <h3>Kamera Atas</h3>
+                    <div id="kamera-depan-container" class="image-gallery">
+                        <p>Memuat foto...</p>
+                    </div>
+                </div>
+                <div class="image-slot">
+                    <h3>Kamera Bawah</h3>
+                    <div id="kamera-belakang-container" class="image-gallery">
+                        <p>Memuat foto...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sistem Monitoring Misi</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
