@@ -1,9 +1,9 @@
 // Ganti dengan Project URL dan anon public key Anda
 const SUPABASE_URL = 'https://jyjunbzusfrmaywmndpa.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5anVuYnp1c2ZybWF5d21uZHBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4NDMxMTgsImV4cCI6MjA2OTQxOTExOH0.IQ6yyyR2OpvQj1lIL1yFsWfVNhJIm2_EFt5Pnv4Bd38';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5anVuYnp1c2ZybWF5d21uZHBhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1Mzg0MzExOCwiZXhwIjoyMDY5NDE5MTE4fQ.A3O9EXp65v5U32tIKH5XQ0In02alUoKdCuSIa0jlyTQ';
 
 // Inisialisasi klien Supabase
-const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // --- Fungsi untuk memperbarui UI ---
 // Fungsi untuk memperbarui UI data navigasi
@@ -105,7 +105,7 @@ async function fetchInitialData() {
             .from('cog_data') // Perbaikan: Gunakan 'cog' yang
             .select('*')
             .order('timestamp', { ascending: false })
-            limit(1);
+            .limit(1);
         if (cogError) throw cogError;
         if (cogData.length > 0) {
             updateCogUI(cogData[0]);
