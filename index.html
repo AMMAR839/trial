@@ -5,52 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Monitoring Misi</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 </head>
 <body>
     <header>
         <h1>Dashboard Monitoring Misi</h1>
     </header>
-
     <main>
         <section class="data-section">
             <h2>Data Navigasi</h2>
             <div id="error-message" class="error-message"></div>
-            <div class="data-card">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Timestamp</td>
-                            <td id="timestamp">N/A</td>
-                        </tr>
-                        <tr>
-                            <td>Latitude</td>
-                            <td id="latitude">N/A</td>
-                        </tr>
-                        <tr>
-                            <td>Longitude</td>
-                            <td id="longitude">N/A</td>
-                        </tr>
-                        <tr>
-                            <td>SOG (m/s)</td>
-                            <td id="sog_ms">N/A</td>
-                        </tr>
-                        <tr>
-                            <td>SOG (km/h)</td>
-                            <td id="sog_kmh">N/A</td>
-                        </tr>
-                        <tr>
-                            <td>SOG (knots)</td>
-                            <td id="sog_knots">N/A</td>
-                        </tr>
-                        <tr>
-                            <td>COG</td>
-                            <td id="cog">N/A</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <section class="isi_data">
+                <div class="kotak">
+                    <h3>Timestamp</h3>
+                    <p id="timestamp">N/A</p>
+                </div>
+                <div class="kotak">
+                    <h3>Latitude</h3>
+                    <p id="latitude">N/A</p>
+                </div>
+                <div class="kotak"> 
+                    <h3>Longitude</h3>
+                    <p id="longitude">N/A</p>
+                </div>
+                <div class="kotak">
+                    <h3>SOG (km/h)</h3>
+                    <p id="sog_kmh">N/A</p>
+                </div>
+                <div class="kotak">
+                    <h3>SOG (knots)</h3>
+                    <p id="sog_knots">N/A</p>
+                </div>
+                <div class="kotak">
+                    <h3>COG</h3>
+                    <p id="cog">N/A</p>
+                </div>
             </div>
+            </section>  
         </section>
 
+        <section class="mapsection">
+            <h2>Lokasi Misi</h2>
+            <div id="map" class="data-maps"></div>
+            
+            <button id="lintasan1" class="tombol-lintasan aktif">Lintasan 1</button>
+
+            <button id="lintasan2" class="tombol-lintasan">Lintasan 2</button>
+
+            <button id="tombol" class="tombol-refresh">Refresh</button>
+        
+        </section>
+    
+    </main>
+
+   
         <section class="images-section">
             <h2>Gambar Misi</h2>
             <div class="images-container">

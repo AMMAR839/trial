@@ -1,9 +1,29 @@
 // Ganti dengan Project URL dan anon public key Anda
 const supabaseClient_URL = 'https://jyjunbzusfrmaywmndpa.supabase.co';
 const supabaseClient_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5anVuYnp1c2ZybWF5d21uZHBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4NDMxMTgsImV4cCI6MjA2OTQxOTExOH0.IQ6yyyR2OpvQj1lIL1yFsWfVNhJIm2_EFt5Pnv4Bd38';
-
+// Dapatkan semua tombol dengan class 'tombol-lintasan'
+const tombolLintasan = document.querySelectorAll('.tombol-lintasan');
 // Inisialisasi klien supabaseClient
 const supabaseClient = supabase.createClient(supabaseClient_URL, supabaseClient_ANON_KEY);
+
+const map = L.map('map').setView([-7.769356, 110.383056], 25);
+
+// Tambahkan peta dasar dari OpenStreetMap
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+    maxZoom: 29,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+}).addTo(map);
+
+// --- Bagian untuk Menambahkan Gambar Satelit Anda ---
+
+const getBounds = [
+    [-7.7695260,110.3828710], // Sudut Kiri Bawah (min lat, min lon)
+    [-7.7692240,110.3832520]  // Sudut Kanan Atas (max lat, max lon)
+];
+
+map.setMaxBounds(getBounds);
+map.fitBounds(getBounds); 
+
 
 // --- Fungsi untuk memperbarui UI ---
 // Fungsi untuk memperbarui UI data navigasi
@@ -12,7 +32,6 @@ function updateNavUI(data) {
     if (!data) {
         // Jika data kosong, atur semua ke 'N/A'
         document.getElementById('timestamp').innerText = 'N/A';
-        document.getElementById('sog_ms').innerText = 'N/A';
         document.getElementById('sog_kmh').innerText = 'N/A';
         document.getElementById('sog_knots').innerText = 'N/A';
         // document.getElementById('cog').innerText = 'N/A';
@@ -25,13 +44,27 @@ function updateNavUI(data) {
     const sog_kmh = msToKmh(data.sog_ms);
 
     document.getElementById('timestamp').innerText = new Date(data.timestamp).toLocaleString();
-    document.getElementById('sog_ms').innerText = data.sog_ms.toFixed(2);
     document.getElementById('sog_kmh').innerText = sog_kmh.toFixed(2);
     document.getElementById('sog_knots').innerText = sog_knots.toFixed(2);
     // document.getElementById('cog').innerText = data.cog.toFixed(2);
     document.getElementById('latitude').innerText = data.latitude.toFixed(6);
     document.getElementById('longitude').innerText = data.longitude.toFixed(6);
 }
+
+
+
+// Tambahkan event listener untuk setiap tombol
+tombolLintasan.forEach(tombol => {
+    tombol.addEventListener('click', () => {
+        // Hapus class 'aktif' dari semua tombol
+        tombolLintasan.forEach(t => {
+            t.classList.remove('aktif');
+        });
+
+        // Tambahkan class 'aktif' ke tombol yang baru diklik
+        tombol.classList.add('aktif');
+    });
+});
 
 function updateCogUI(data) {
     document.getElementById('cog').innerText = data.cog ? data.cog.toFixed(2) : 'N/A';
@@ -87,6 +120,9 @@ async function fetchInitialData() {
     const errorMessageElement = document.getElementById('error-message');
     try {
         // Ambil data navigasi paling baru
+        errorMessageElement.innerText = '';
+        errorMessageElement.classList.remove('error-message');
+        
         const { data: navData, error: navError } = await supabaseClient
             .from('nav_data') // Perbaikan: Gunakan 'nav_data' yang konsisten
             .select('*')
@@ -106,6 +142,7 @@ async function fetchInitialData() {
             .select('*')
             .order('timestamp', { ascending: false })
             .limit(1);
+
         if (cogError) throw cogError;
         if (cogData.length > 0) {
             updateCogUI(cogData[0]);
@@ -124,8 +161,10 @@ async function fetchInitialData() {
         updateMissionImagesUI(images); // Perbaikan: Kirim data langsung ke fungsi UI
 
         errorMessageElement.innerText = '';
+
     } catch (error) {
         errorMessageElement.innerText = `Gagal mengambil data awal: ${error.message}. Periksa konsol.`;
+        errorMessageElement.classList.add('error-message');
         console.error('Error fetching initial data:', error);
     }
 }

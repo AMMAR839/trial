@@ -1,5 +1,8 @@
 /* style.css */
 
+/* --- Gaya Umum --- */
+
+
 /* --- Gaya Dasar --- */
 body {
     font-family: Arial, sans-serif;
@@ -18,33 +21,99 @@ header {
 }
 
 main {
-    max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
 }
 
+.data-section {
+    width: 800px;
+    min-width: 30px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    
+}
+
+.isi_data {
+  /* Mengaktifkan Flexbox pada wadah */
+  display: flex;
+
+  /* Memungkinkan item untuk pindah ke baris baru (wrap) */
+  flex-wrap: wrap;
+
+  /* Memberi jarak 20px di antara setiap kotak */
+  gap: 10px;
+}
+
+.kotak {
+
+  flex: 1 1 200px; 
+  /*height: 100px;*/
+  /* Mengatur tinggi kotak agar responsif */
+ min-height: 200px; /* Tinggi minimum agar kotak tetap terlihat */
+
+  /* Styling tambahan untuk visualisasi */
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+
+
 /* --- Bagian Data --- */
-.data-section, .images-section {
+.images-section {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mapsection {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
 h2 {
     color: #0056b3;
     border-bottom: 2px solid #e9ecef;
     padding-bottom: 10px;
 }
 
+/* Aturan ini menargetkan h3 yang berada di dalam elemen dengan class 'kotak' */
+.kotak h3 {
+  color: #3b0462;
+  border-bottom: 1px solid grey;
+  padding-bottom: 5px;
+}
+
+
 .data-card {
     border: 1px solid #dee2e6;
     border-radius: 6px;
     overflow: hidden;
 }
+
+.mapsection data-maps{
+    height: 100px;
+    width: 100px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
 
 table {
     width: 100%;
@@ -104,6 +173,13 @@ h3 {
 }
 
 /* --- Pesan Error --- */
+
+#map {  height: 500px;
+        width: 500px;
+        border-radius: 6px;
+        margin-top: 20px;
+}
+
 .error-message {
     color: #dc3545;
     background-color: #f8d7da;
@@ -119,4 +195,26 @@ h3 {
     .images-container {
         flex-direction: column;
     }
+}
+
+
+.tombol-lintasan {
+    padding: 10px 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #f0f0f0; /* Warna abu-abu default */
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.tombol-lintasan.aktif {
+    background-color: rgb(135, 221, 148); /* Warna putih saat aktif */
+}
+
+.tombol-refresh {
+    border-radius: 4px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Warna biru untuk tombol refresh */
+    color: white;
 }
